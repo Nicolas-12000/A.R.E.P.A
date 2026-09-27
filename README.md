@@ -5,7 +5,7 @@
 Multi-domain linear regression: CRISP-DM offline training, `.joblib` artifacts, and a **FastAPI** inference API.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-0.115-teal)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.141-teal)
 
 ## Layout
 
