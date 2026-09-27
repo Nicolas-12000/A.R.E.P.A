@@ -1,0 +1,38 @@
+# Default for new users: Postgres (Alpine) + API (Alpine) on one network.
+# API: http://localhost:8000/docs
+#
+# Already have Postgres on the host (e.g. postgres-db on :5432)?
+#   docker compose up api --build --no-deps
+#   and set AREPA_DATABASE_URL in .env to host.docker.internal (see .env.example).
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-arepa_dev}
+      POSTGRES_DB: arepa
+    volumes:
+      - arepa_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d arepa"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: arepa-api:alpine
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      AREPA_DATABASE_URL: postgresql+psycopg://postgres:${POSTGRES_PASSWORD:-arepa_dev}@db:5432/arepa
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  arepa_pg_data:
