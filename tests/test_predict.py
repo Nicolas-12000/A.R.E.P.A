@@ -50,6 +50,20 @@ def test_predict_invalid_input_returns_422(client, path, payload):
     assert response.status_code == 422
 
 
+def test_model_catalog_lists_three_exercises(client):
+    response = client.get("/v1/models")
+    assert response.status_code == 200
+    items = response.json()
+    assert len(items) == 3
+    names = {item["model_name"] for item in items}
+    assert names == {"dollar", "glucose", "energy"}
+    dollar = next(i for i in items if i["model_name"] == "dollar")
+    assert dollar["exercise_title"].startswith("Ejercicio 1")
+    assert dollar["artifact_loaded"] is True
+    assert 0 <= dollar["r2_score"] <= 1
+    assert dollar["mse"] > 0
+
+
 def test_model_metadata_dollar(client):
     response = client.get("/v1/models/dollar/metadata")
     assert response.status_code == 200

@@ -10,11 +10,13 @@ from backend.app.schemas import (
     EnergyPredictionRequest,
     GlucosePredictionRequest,
     HealthResponse,
+    ModelCatalogItem,
     ModelMetadataResponse,
     PredictionLogItem,
     PredictionResponse,
 )
 from backend.app.services import prediction as prediction_service
+from backend.app.services.catalog import build_model_catalog
 from backend.app.services.model_registry import MODEL_NAMES, registry
 
 router = APIRouter()
@@ -81,6 +83,18 @@ def prediction_history(model: str | None = None, limit: int = 50) -> list[Predic
 def analytics() -> AnalyticsSummary:
     _ensure_database()
     return AnalyticsSummary(**analytics_summary())
+
+
+@router.get("/models", response_model=list[ModelCatalogItem])
+def list_models() -> list[ModelCatalogItem]:
+    """Registry of exported models (MSE/R² from deployment sync) for exercise selection in the UI."""
+    catalog = build_model_catalog()
+    if not catalog:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="No models in catalog. Train and export artifacts to models/.",
+        )
+    return catalog
 
 
 @router.get("/models/{model_name}/metadata", response_model=ModelMetadataResponse)

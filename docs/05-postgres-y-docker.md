@@ -5,7 +5,7 @@
 Postgres no guarda los CSV ni entrena el modelo. Guarda lo que hace la API en uso:
 
 - `predictions_log`: qué modelo se llamó, qué números entraron y qué número salió.
-- `model_metadata`: el R², el MSE y el RMSE del artefacto que está cargado.
+- `model_metadata`: R², MSE y RMSE del artefacto desplegado (sync al arrancar). **`GET /v1/models`** lee esta tabla para que la interfaz web liste los tres ejercicios con su desempeño antes de predecir.
 
 Con eso se puede responder "cuál escenario usa la gente" sin mezclar la bitácora con los datos de entrenamiento.
 

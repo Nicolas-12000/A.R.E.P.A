@@ -37,6 +37,20 @@ class PredictionResponse(BaseModel):
     )
 
 
+class ModelCatalogItem(BaseModel):
+    """Deployed model summary for the web UI (Postgres registry, aligned with encargo exercises)."""
+
+    model_name: Literal["dollar", "glucose", "energy"]
+    exercise_title: str
+    target: str
+    r2_score: float
+    mse: float
+    rmse: float | None = None
+    version: str = "v1"
+    trained_at: datetime | None = None
+    artifact_loaded: bool = Field(description="True when the .joblib is loaded in this process.")
+
+
 class ModelMetadataResponse(BaseModel):
     model_name: Literal["dollar", "glucose", "energy"]
     target: str

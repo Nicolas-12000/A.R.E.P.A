@@ -50,6 +50,13 @@ def sync_model_metadata(artifacts: dict[str, dict]) -> None:
         session.commit()
 
 
+def list_registered_models() -> list[ModelMetadata]:
+    if not db_session.enabled or db_session.SessionLocal is None:
+        return []
+    with db_session.SessionLocal() as session:
+        return list(session.scalars(select(ModelMetadata).order_by(ModelMetadata.model_name)))
+
+
 def list_predictions(model_name: str | None, limit: int) -> list[PredictionLog]:
     if not db_session.enabled or db_session.SessionLocal is None:
         return []
