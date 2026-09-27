@@ -1,0 +1,465 @@
+{
+  "dollar": {
+    "treatment": {
+      "scenario": "dollar",
+      "source": "data/raw/dolar_data.csv",
+      "rows_dirty": 500,
+      "rows_clean": 500,
+      "rows_removed": 0,
+      "exact_duplicates_removed": 0,
+      "coercion_failures": {
+        "day": 0,
+        "inflation_rate": 0,
+        "interest_rate": 0,
+        "dollar_price": 0
+      },
+      "capture_errors_by_column": {
+        "day": 0,
+        "inflation_rate": 0,
+        "interest_rate": 0,
+        "dollar_price": 0
+      },
+      "capture_errors_removed": 0,
+      "anomaly_category_counts": {
+        "normal": 490,
+        "real_extreme": 10
+      },
+      "iqr_flags_kept": {
+        "day": 0,
+        "inflation_rate": 4,
+        "interest_rate": 7,
+        "dollar_price": 0
+      },
+      "decision": "Rows outside physical bounds are capture errors and are removed. IQR tails inside those bounds are kept and labeled real_extreme or rare_legitimate.",
+      "dropped_preview": [],
+      "flagged_preview": [
+        {
+          "day": 45,
+          "inflation_rate": 0.0126073900481628,
+          "interest_rate": 3.7641777499363553,
+          "dollar_price": 4181.248335513228,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 147,
+          "inflation_rate": 0.0138152464456095,
+          "interest_rate": 3.6515566785292144,
+          "dollar_price": 4646.43372815907,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 155,
+          "inflation_rate": 0.0214653623664934,
+          "interest_rate": 6.286679901624931,
+          "dollar_price": 4798.527031463867,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 169,
+          "inflation_rate": 0.0187730594199856,
+          "interest_rate": 3.674515095803494,
+          "dollar_price": 4841.747178009226,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 180,
+          "inflation_rate": 0.0336008458329481,
+          "interest_rate": 5.63577754749708,
+          "dollar_price": 4795.182927830831,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 210,
+          "inflation_rate": 0.0392636574532736,
+          "interest_rate": 5.848228184145019,
+          "dollar_price": 5086.849286808551,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 256,
+          "inflation_rate": 0.0175788296356687,
+          "interest_rate": 6.316191032418695,
+          "dollar_price": 5159.871804668386,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "day": 263,
+          "inflation_rate": 0.0037936632996546,
+          "interest_rate": 6.280042269134397,
+          "dollar_price": 5279.896109590905,
+          "anomaly_category": "real_extreme"
+        }
+      ]
+    },
+    "vif": [
+      {
+        "feature": "interest_rate",
+        "vif": 1.0118993898838875
+      },
+      {
+        "feature": "day",
+        "vif": 1.0065837892287528
+      },
+      {
+        "feature": "inflation_rate",
+        "vif": 1.006532239102017
+      }
+    ],
+    "metrics_published": {
+      "mse": 2376.970876572467,
+      "rmse": 48.75418829775004,
+      "r2": 0.9963128117569109
+    },
+    "metrics_without_iqr_flags": {
+      "mse": 2560.4973137555576,
+      "rmse": 50.601356837100305,
+      "r2": 0.99593784087456
+    },
+    "huber_metrics": {
+      "mse": 2451.2211092227503,
+      "rmse": 49.509808212340616,
+      "r2": 0.9961976338270621
+    },
+    "influence": {
+      "train_rows": 400,
+      "cooks_threshold": 0.01,
+      "high_influence_rows": 25,
+      "max_cooks_distance": 0.05017637904601797
+    },
+    "coefficients": [
+      {
+        "feature": "day",
+        "coefficient": 4.984338715884639,
+        "standardized_coefficient": 699.8238181755279
+      },
+      {
+        "feature": "inflation_rate",
+        "coefficient": -870.7317083114131,
+        "standardized_coefficient": -4.267695392326026
+      },
+      {
+        "feature": "interest_rate",
+        "coefficient": -1.377431287808411,
+        "standardized_coefficient": -0.6597987330640835
+      },
+      {
+        "feature": "intercept",
+        "coefficient": 3985.783290894245,
+        "standardized_coefficient": 5202.697603367559
+      }
+    ],
+    "outlier_rows_kept": 10
+  },
+  "glucose": {
+    "treatment": {
+      "scenario": "glucose",
+      "source": "data/raw/glucosa_data.csv",
+      "rows_dirty": 2000,
+      "rows_clean": 2000,
+      "rows_removed": 0,
+      "exact_duplicates_removed": 0,
+      "coercion_failures": {
+        "age": 0,
+        "bmi": 0,
+        "physical_activity_hours": 0,
+        "glucose_level": 0
+      },
+      "capture_errors_by_column": {
+        "age": 0,
+        "bmi": 0,
+        "physical_activity_hours": 0,
+        "glucose_level": 0
+      },
+      "capture_errors_removed": 0,
+      "anomaly_category_counts": {
+        "normal": 1981,
+        "rare_legitimate": 16,
+        "real_extreme": 3
+      },
+      "iqr_flags_kept": {
+        "age": 0,
+        "bmi": 16,
+        "physical_activity_hours": 0,
+        "glucose_level": 3
+      },
+      "decision": "Rows outside physical bounds are capture errors and are removed. IQR tails inside those bounds are kept and labeled real_extreme or rare_legitimate.",
+      "dropped_preview": [],
+      "flagged_preview": [
+        {
+          "age": 42,
+          "bmi": 13.46641386357977,
+          "physical_activity_hours": 1,
+          "glucose_level": 141.8403322716261,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 67,
+          "bmi": 36.01550449408417,
+          "physical_activity_hours": 4,
+          "glucose_level": 174.7324459692326,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 21,
+          "bmi": 17.707460686485593,
+          "physical_activity_hours": 6,
+          "glucose_level": 43.415923806929655,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "age": 48,
+          "bmi": 36.76277057729901,
+          "physical_activity_hours": 4,
+          "glucose_level": 167.76480224991613,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 26,
+          "bmi": 38.49008157529792,
+          "physical_activity_hours": 4,
+          "glucose_level": 130.05360863077323,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 23,
+          "bmi": 14.129824785840404,
+          "physical_activity_hours": 8,
+          "glucose_level": 107.36199770712076,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 25,
+          "bmi": 36.72142396699193,
+          "physical_activity_hours": 2,
+          "glucose_level": 147.66053104863877,
+          "anomaly_category": "rare_legitimate"
+        },
+        {
+          "age": 72,
+          "bmi": 23.008519155411,
+          "physical_activity_hours": 2,
+          "glucose_level": 224.8305968162924,
+          "anomaly_category": "real_extreme"
+        }
+      ]
+    },
+    "vif": [
+      {
+        "feature": "age",
+        "vif": 1.0005543509717238
+      },
+      {
+        "feature": "physical_activity_hours",
+        "vif": 1.000474034041482
+      },
+      {
+        "feature": "bmi",
+        "vif": 1.0004025698327106
+      }
+    ],
+    "metrics_published": {
+      "mse": 233.6930004508584,
+      "rmse": 15.287020653183484,
+      "r2": 0.6813715865404839
+    },
+    "metrics_without_iqr_flags": {
+      "mse": 223.90432680758116,
+      "rmse": 14.96343298870888,
+      "r2": 0.6947511195808522
+    },
+    "huber_metrics": {
+      "mse": 234.1151359994152,
+      "rmse": 15.300821415839582,
+      "r2": 0.6807960263831747
+    },
+    "influence": {
+      "train_rows": 1600,
+      "cooks_threshold": 0.0025,
+      "high_influence_rows": 90,
+      "max_cooks_distance": 0.012728643119486882
+    },
+    "coefficients": [
+      {
+        "feature": "age",
+        "coefficient": 1.2265900344995717,
+        "standardized_coefficient": 21.570810524540356
+      },
+      {
+        "feature": "bmi",
+        "coefficient": 0.9333730560351005,
+        "standardized_coefficient": 3.7225287924334873
+      },
+      {
+        "feature": "physical_activity_hours",
+        "coefficient": -2.085276343043284,
+        "standardized_coefficient": -6.106122125279992
+      },
+      {
+        "feature": "intercept",
+        "coefficient": 65.86086530452529,
+        "standardized_coefficient": 139.81409842954685
+      }
+    ],
+    "outlier_rows_kept": 19
+  },
+  "energy": {
+    "treatment": {
+      "scenario": "energy",
+      "source": "data/raw/energia_data.csv",
+      "rows_dirty": 10000,
+      "rows_clean": 10000,
+      "rows_removed": 0,
+      "exact_duplicates_removed": 0,
+      "coercion_failures": {
+        "temperature": 0,
+        "hour": 0,
+        "day_of_week": 0,
+        "energy_consumption": 0
+      },
+      "capture_errors_by_column": {
+        "temperature": 0,
+        "hour": 0,
+        "day_of_week": 0,
+        "energy_consumption": 0
+      },
+      "capture_errors_removed": 0,
+      "anomaly_category_counts": {
+        "normal": 9867,
+        "real_extreme": 133
+      },
+      "iqr_flags_kept": {
+        "temperature": 90,
+        "hour": 0,
+        "day_of_week": 0,
+        "energy_consumption": 66
+      },
+      "decision": "Rows outside physical bounds are capture errors and are removed. IQR tails inside those bounds are kept and labeled real_extreme or rare_legitimate.",
+      "dropped_preview": [],
+      "flagged_preview": [
+        {
+          "temperature": 10.638688933591752,
+          "hour": 16,
+          "day_of_week": 5,
+          "energy_consumption": 298.78425380315576,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 10.393247582526964,
+          "hour": 20,
+          "day_of_week": 1,
+          "energy_consumption": 277.69744982174143,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 40.965537839224304,
+          "hour": 20,
+          "day_of_week": 4,
+          "energy_consumption": 598.2871585152947,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 40.688742668299966,
+          "hour": 2,
+          "day_of_week": 3,
+          "energy_consumption": 515.8199854674288,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 10.298056826678598,
+          "hour": 16,
+          "day_of_week": 3,
+          "energy_consumption": 244.98024114343536,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 9.902439220895872,
+          "hour": 21,
+          "day_of_week": 7,
+          "energy_consumption": 302.34733245714466,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 38.79830019455539,
+          "hour": 8,
+          "day_of_week": 4,
+          "energy_consumption": 501.7167839399497,
+          "anomaly_category": "real_extreme"
+        },
+        {
+          "temperature": 37.063077108064576,
+          "hour": 21,
+          "day_of_week": 5,
+          "energy_consumption": 579.5407171738336,
+          "anomaly_category": "real_extreme"
+        }
+      ]
+    },
+    "vif": [
+      {
+        "feature": "temperature",
+        "vif": 1.0003067614266457
+      },
+      {
+        "feature": "hour_cos",
+        "vif": 1.0002260004560874
+      },
+      {
+        "feature": "day_of_week",
+        "vif": 1.0000470400412615
+      },
+      {
+        "feature": "hour_sin",
+        "vif": 1.000033881058335
+      }
+    ],
+    "metrics_published": {
+      "mse": 894.4055061609894,
+      "rmse": 29.90661308408208,
+      "r2": 0.7851430644321611
+    },
+    "metrics_without_iqr_flags": {
+      "mse": 830.9903612394899,
+      "rmse": 28.826903427865606,
+      "r2": 0.7773485473982085
+    },
+    "huber_metrics": {
+      "mse": 894.5102858993544,
+      "rmse": 29.90836481487001,
+      "r2": 0.7851178939101332
+    },
+    "influence": {
+      "train_rows": 8000,
+      "cooks_threshold": 0.0005,
+      "high_influence_rows": 408,
+      "max_cooks_distance": 0.002960220571931898
+    },
+    "coefficients": [
+      {
+        "feature": "temperature",
+        "coefficient": 9.870098523050014,
+        "standardized_coefficient": 49.2494813480678
+      },
+      {
+        "feature": "hour_sin",
+        "coefficient": -38.3105997675908,
+        "standardized_coefficient": -26.994439592713505
+      },
+      {
+        "feature": "hour_cos",
+        "coefficient": -4.871820838566049,
+        "standardized_coefficient": -3.456963558554513
+      },
+      {
+        "feature": "day_of_week",
+        "coefficient": -3.0666735506800054,
+        "standardized_coefficient": -6.145022889248078
+      },
+      {
+        "feature": "intercept",
+        "coefficient": 166.08339627947905,
+        "standardized_coefficient": 400.10857952736836
+      }
+    ],
+    "outlier_rows_kept": 133
+  }
+}
