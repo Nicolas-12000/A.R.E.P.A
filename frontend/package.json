@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "design:lint": "npx --yes @google/design.md lint DESIGN.md",
+    "design:tokens": "node scripts/design-tokens.mjs"
   },
   "dependencies": {
     "react": "19.1.0",

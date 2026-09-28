@@ -1,26 +1,173 @@
 @import "tailwindcss";
+@import "./tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --shadow-focus: 0 1px 2px rgb(27 42 39 / 0.05), 0 16px 36px -16px rgb(27 42 39 / 0.22);
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-blink: blink 4.5s ease-in-out infinite;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  @keyframes blink {
+    0%,
+    90%,
+    100% {
+      transform: scaleY(1);
+    }
+    94% {
+      transform: scaleY(0.1);
+    }
+  }
+  --text-code: 0.8125rem;
+  --text-code--line-height: 1.5;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes shimmer {
+    from {
+      background-position: 150% 0;
+    }
+    to {
+      background-position: -50% 0;
+    }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* next/font exposes hashed family names, so typography tokens can't come from tokens.css. */
+@theme inline {
+  --font-display: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+}
+
+@utility type-display {
+  font-family: var(--font-display);
+  font-size: 2.25rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  @variant lg {
+    font-size: 3rem;
+  }
+}
+
+/* The page headline only: 2.5rem on phones, up to 4.5rem on wide screens. */
+@utility type-hero {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  @variant sm {
+    font-size: 3.25rem;
+  }
+  @variant lg {
+    font-size: 4rem;
+  }
+  @variant xl {
+    font-size: 4.5rem;
+  }
+}
+
+@utility type-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+@utility type-heading {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+@utility type-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+@utility type-small {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+@utility type-num-xl {
+  font-family: var(--font-mono);
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  font-feature-settings: "tnum";
+  @variant lg {
+    font-size: 3.25rem;
+  }
+}
+
+/* 1rem minimum: iOS Safari zooms into inputs below 16px. */
+@utility type-num {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.4;
+  font-feature-settings: "tnum";
+}
+
+@utility graph-paper {
+  background-color: var(--color-neutral);
+  background-image:
+    linear-gradient(to right, --alpha(var(--color-outline) / 45%) 1px, transparent 1px),
+    linear-gradient(to bottom, --alpha(var(--color-outline) / 45%) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+@utility skeleton {
+  border-radius: var(--radius-sm);
+  background-color: var(--color-outline);
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    --alpha(var(--color-surface) / 55%) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  animation: var(--animate-shimmer);
+  @variant motion-reduce {
+    animation: none;
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-tap-highlight-color: transparent;
+    @variant motion-safe {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    background-color: var(--color-neutral);
+    color: var(--color-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-tertiary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: --alpha(var(--color-mark) / 35%);
+  }
 }
