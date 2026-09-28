@@ -31,6 +31,19 @@ Con Docker no instalas Postgres ni Python: Compose levanta la base y la API junt
 
 Para comprobar el historial: en la misma página de docs, prueba **GET /v1/predictions/history**.
 
+## Interfaz web (recomendado para el encargo)
+
+Con la API ya en marcha (Docker o local en el puerto 8000):
+
+```bash
+cd frontend
+cp .env.example .env.local
+pnpm install    # o npm install
+pnpm dev
+```
+
+Abre **http://localhost:3000**: eliges ejercicio, escribes valores, ves predicción, interpretación y figuras. Detalle en el [README del frontend](../frontend/README.md).
+
 ## Sin Docker (Python local)
 
 ```bash

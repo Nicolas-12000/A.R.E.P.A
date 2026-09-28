@@ -2,16 +2,18 @@
 
 **Applied Regression, Estimation & Predictive Analytics**
 
-Multi-domain linear regression: CRISP-DM offline training, `.joblib` artifacts, and a **FastAPI** inference API.
+Multi-domain linear regression: CRISP-DM offline training, `.joblib` artifacts, a **FastAPI** inference API, and a **Next.js** web UI for the three exercises.
 
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.141-teal)
+![Next.js](https://img.shields.io/badge/Next.js-15-black)
+![React](https://img.shields.io/badge/React-19-61dafb)
 
 ## Layout
 
 ```
 ├── backend/app/       # FastAPI (v1 predict + metadata)
-├── frontend/          # Next.js UI: pick an exercise, type values, read the fit
+├── frontend/          # Next.js 15 (App Router): forms, results, figures
 ├── src/arepa/         # ML pipeline (load, clean, train, export)
 ├── notebooks/         # 01–03 analysis per domain
 ├── models/            # Serialized pipelines (.joblib)
@@ -55,9 +57,13 @@ If you already run Postgres on `:5432`, start only the API: `docker compose up a
 
 API docs: http://localhost:8000/docs
 
-## Web UI
+**Stack completo en desarrollo:** Docker solo empaqueta **Postgres + API** (`docker-compose.yml`). La UI Next.js corre en tu máquina con pnpm (abajo): apunta `NEXT_PUBLIC_API_URL` a `http://localhost:8000` (valor por defecto en `frontend/.env.example`). Las figuras del informe las sirve el propio frontend desde `report/figures/`.
 
-The interface is the deliverable for the three exercises (dólar, glucosa, energía). With the API running:
+## Web UI (Next.js)
+
+**Stack:** Next.js 15 (App Router), React 19, Tailwind CSS 4. The app lives in `frontend/` and talks to the API via `NEXT_PUBLIC_API_URL` (see `frontend/.env.example`).
+
+**Needs:** Node 20+ recommended, API on port 8000 (Docker Compose or local uvicorn).
 
 ```bash
 cd frontend
@@ -69,9 +75,15 @@ pnpm dev
 
 Open http://localhost:3000.
 
+| Script | Command |
+|--------|---------|
+| Dev server | `pnpm dev` |
+| Production build | `pnpm build` && `pnpm start` |
+| Lint | `pnpm lint` |
+
 **npm** also works (`npm install` / `npm run dev`) via `package-lock.json`; prefer **pnpm** (`pnpm-lock.yaml`) when you can. After changing `package.json`, refresh both lockfiles so they stay aligned.
 
-For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`. More detail: [frontend/README.md](frontend/README.md).
+For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`. Design tokens and palette: [frontend/DESIGN.md](frontend/DESIGN.md) · install notes: [frontend/README.md](frontend/README.md).
 
 ## Tests & CI
 

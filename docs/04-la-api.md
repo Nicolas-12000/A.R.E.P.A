@@ -87,7 +87,7 @@ Detalle de los tres estados de `database` (`disabled`, `ok`, `error`): [Glosario
 
 ## CORS (frontend)
 
-Por defecto se aceptan peticiones desde `http://localhost:3000` y `http://127.0.0.1:3000` para una futura app Next.js. Configurable con `AREPA_CORS_ORIGINS` (lista JSON en `.env` si lo necesitas).
+La app en `frontend/` (Next.js) llama a la API desde el navegador. Por defecto se aceptan `http://localhost:3000`, `http://127.0.0.1:3000` y, con regex, otros puertos en **localhost y redes privadas** (útil en WSL o probando desde el móvil en la misma Wi‑Fi). Lista fija adicional: `AREPA_CORS_ORIGINS` (JSON en `.env`).
 
 ## Qué hace el backend por dentro
 

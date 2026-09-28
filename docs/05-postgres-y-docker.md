@@ -41,6 +41,16 @@ La base `arepa` y las tablas se crean solas (Alembic al arrancar la API). Los da
 
 Contraseña por defecto en el ejemplo: `arepa_dev` (cámbiala en `.env` si quieres).
 
+### Interfaz web (fuera de Compose)
+
+El contenedor `api` incluye modelos `.joblib` y el código FastAPI; **no** incluye Node ni la UI. Para el entregable visual:
+
+1. Deja Compose corriendo (API en `:8000`).
+2. En el host: `cd frontend`, `cp .env.example .env.local`, `pnpm install`, `pnpm dev`.
+3. Abre http://localhost:3000 (`NEXT_PUBLIC_API_URL=http://localhost:8000`).
+
+Las gráficas de `report/figures/` las lee el servidor de desarrollo de Next, no la imagen Docker de la API.
+
 ## Si ya tienes Postgres en el PC
 
 Por ejemplo el contenedor `postgres-db` en el puerto 5432. No levantes el servicio `db` de AREPA (evitas choque de puertos):

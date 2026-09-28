@@ -82,7 +82,7 @@ Nombre especial para que un contenedor Docker llegue al Postgres (o cualquier se
 
 ### ¿Dónde está el frontend?
 
-Aún no hay app Next.js en el repo. CORS ya permite `http://localhost:3000` para cuando la construyas. Mientras tanto, usa `/docs` o `curl`.
+En `frontend/`: Next.js con los tres ejercicios. **No va dentro de Docker Compose** (solo API + Postgres). Flujo típico: `docker compose up --build` y, en otra terminal, `cd frontend && pnpm install && pnpm dev` → http://localhost:3000. Sin UI, sigue valiendo `/docs` o `curl`.
 
 ### ¿Cómo corro los tests?
 
