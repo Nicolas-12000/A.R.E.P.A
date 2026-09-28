@@ -1,4 +1,4 @@
-# AREPA
+# A.R.E.P.A.
 
 **Applied Regression, Estimation & Predictive Analytics**
 
@@ -11,11 +11,13 @@ Multi-domain linear regression: CRISP-DM offline training, `.joblib` artifacts, 
 
 ```
 ├── backend/app/       # FastAPI (v1 predict + metadata)
+├── frontend/          # Next.js UI: pick an exercise, type values, read the fit
 ├── src/arepa/         # ML pipeline (load, clean, train, export)
 ├── notebooks/         # 01–03 analysis per domain
-├── models/            # Serialized pipelines
+├── models/            # Serialized pipelines (.joblib)
 ├── data/raw/          # Dirty CSVs
 ├── data/processed/    # Treated frames
+├── report/figures/    # Scatter and correlation plots used by the UI
 ├── docs/              # Walkthrough for someone new to the project
 ├── tests/
 └── scripts/train_models.py
@@ -53,6 +55,21 @@ If you already run Postgres on `:5432`, start only the API: `docker compose up a
 
 API docs: http://localhost:8000/docs
 
+## Web UI
+
+The interface is the deliverable for the three exercises (dólar, glucosa, energía). With the API running:
+
+```bash
+cd frontend
+cp .env.example .env.local
+command npm install
+command npm run dev
+```
+
+Open http://localhost:3000. `command npm` matters if your shell aliases `npm` to pnpm.
+
+For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`.
+
 ## Tests & CI
 
 ```bash
@@ -60,7 +77,7 @@ pytest -q
 ruff check backend tests src scripts
 ```
 
-GitHub Actions: ruff → pytest → Docker build (`requirements-dev.txt` locally; Docker uses slim `requirements.txt`).
+GitHub Actions runs ruff and pytest. Docker uses the slimmer `requirements.txt`.
 
 ## Docker
 
