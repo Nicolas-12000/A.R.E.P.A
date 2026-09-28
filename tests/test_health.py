@@ -19,6 +19,22 @@ def test_health_degraded_when_database_errors(client, monkeypatch):
     assert body["status"] == "degraded"
 
 
+def _preflight(client, origin: str):
+    return client.options(
+        "/v1/health",
+        headers={"Origin": origin, "Access-Control-Request-Method": "GET"},
+    )
+
+
+def test_cors_allows_local_and_private_network_origins(client):
+    for origin in ("http://localhost:3001", "http://10.255.255.254:3000", "http://192.168.1.20:3000"):
+        assert _preflight(client, origin).status_code == 200, origin
+
+
+def test_cors_rejects_public_origins(client):
+    assert _preflight(client, "https://example.com").status_code == 400
+
+
 def test_root(client):
     response = client.get("/")
     assert response.status_code == 200
