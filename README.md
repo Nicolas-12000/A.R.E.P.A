@@ -62,13 +62,16 @@ The interface is the deliverable for the three exercises (dólar, glucosa, energ
 ```bash
 cd frontend
 cp .env.example .env.local
-command npm install
-command npm run dev
+corepack enable          # once per machine (Node 16.13+)
+pnpm install
+pnpm dev
 ```
 
-Open http://localhost:3000. `command npm` matters if your shell aliases `npm` to pnpm.
+Open http://localhost:3000.
 
-For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`.
+**npm** also works (`npm install` / `npm run dev`) via `package-lock.json`; prefer **pnpm** (`pnpm-lock.yaml`) when you can. After changing `package.json`, refresh both lockfiles so they stay aligned.
+
+For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`. More detail: [frontend/README.md](frontend/README.md).
 
 ## Tests & CI
 

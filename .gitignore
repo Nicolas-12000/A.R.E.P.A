@@ -12,7 +12,7 @@ dist/
 build/
 .DS_Store
 
-# pnpm (use npm in frontend/)
+# pnpm store (lockfiles live in frontend/)
 .pnpm-store/
 
 # Next.js local env (see frontend/.env.example)
