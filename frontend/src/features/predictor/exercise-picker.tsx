@@ -21,7 +21,7 @@ export function ExercisePicker({
       {EXERCISE_LIST.map((exercise) => (
         <label
           key={exercise.id}
-          className="flex h-11 min-w-0 flex-1 cursor-pointer items-center justify-center rounded-full px-2 text-center text-sm leading-none font-medium text-secondary transition-colors select-none hover:text-primary has-checked:bg-tertiary has-checked:text-on-tertiary has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-tertiary"
+          className="flex min-h-11 min-w-0 flex-1 cursor-pointer items-center justify-center rounded-full px-2 py-2.5 text-center text-sm leading-normal font-medium text-secondary transition-colors select-none hover:text-primary has-checked:bg-tertiary has-checked:text-on-tertiary has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-tertiary"
         >
           <input
             type="radio"
@@ -31,7 +31,7 @@ export function ExercisePicker({
             onChange={() => onChange(exercise.id)}
             className="sr-only"
           />
-          <span className="truncate">{exercise.shortLabel}</span>
+          <span>{exercise.shortLabel}</span>
         </label>
       ))}
     </fieldset>
