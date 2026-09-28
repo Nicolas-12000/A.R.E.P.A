@@ -50,6 +50,30 @@ def test_predict_invalid_input_returns_422(client, path, payload):
     assert response.status_code == 422
 
 
+def test_predict_rejects_unknown_fields(client):
+    response = client.post(
+        "/v1/predict/dollar",
+        json={"day": 120, "inflation_rate": 0.02, "interest_rate": 5.0, "evil": 1},
+    )
+    assert response.status_code == 422
+
+
+def test_predict_rejects_non_finite_floats(client):
+    response = client.post(
+        "/v1/predict/dollar",
+        json={"day": 120, "inflation_rate": "nan", "interest_rate": 5.0},
+    )
+    assert response.status_code == 422
+
+
+def test_predict_dollar_day_above_cap_returns_422(client):
+    response = client.post(
+        "/v1/predict/dollar",
+        json={"day": 100_001, "inflation_rate": 0.02, "interest_rate": 5.0},
+    )
+    assert response.status_code == 422
+
+
 def test_model_catalog_lists_three_exercises(client):
     response = client.get("/v1/models")
     assert response.status_code == 200

@@ -1,6 +1,6 @@
 """Versioned API routes."""
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, Query, status
 
 from backend.app.db import session as db_session
 from backend.app.db.repository import analytics_summary, list_predictions, log_prediction
@@ -61,11 +61,13 @@ def predict_energy(body: EnergyPredictionRequest) -> PredictionResponse:
 
 
 @router.get("/predictions/history", response_model=list[PredictionLogItem])
-def prediction_history(model: str | None = None, limit: int = 50) -> list[PredictionLogItem]:
+def prediction_history(
+    model: str | None = None,
+    limit: int = Query(50, ge=1, le=200),
+) -> list[PredictionLogItem]:
     _ensure_database()
     if model is not None and model not in MODEL_NAMES:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Unknown model")
-    limit = min(max(limit, 1), 200)
     rows = list_predictions(model, limit)
     return [
         PredictionLogItem(

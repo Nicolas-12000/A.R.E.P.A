@@ -3,23 +3,29 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field, confloat
 
 
-class DollarPredictionRequest(BaseModel):
-    day: int = Field(..., ge=1, description="Day index in the series")
-    inflation_rate: float = Field(..., ge=0, le=1, description="Daily inflation rate")
-    interest_rate: float = Field(..., ge=0, le=100, description="Daily interest rate (%)")
+class _PredictionInput(BaseModel):
+    """Reject unknown JSON keys and non-finite floats on prediction bodies."""
+
+    model_config = ConfigDict(extra="forbid")
 
 
-class GlucosePredictionRequest(BaseModel):
+class DollarPredictionRequest(_PredictionInput):
+    day: int = Field(..., ge=1, le=100_000, description="Day index in the series")
+    inflation_rate: confloat(ge=0, le=1, allow_inf_nan=False) = Field(..., description="Daily inflation rate")
+    interest_rate: confloat(ge=0, le=100, allow_inf_nan=False) = Field(..., description="Daily interest rate (%)")
+
+
+class GlucosePredictionRequest(_PredictionInput):
     age: int = Field(..., ge=1, le=120)
-    bmi: float = Field(..., ge=10, le=80)
-    physical_activity_hours: float = Field(..., ge=0, le=168)
+    bmi: confloat(ge=10, le=80, allow_inf_nan=False)
+    physical_activity_hours: confloat(ge=0, le=168, allow_inf_nan=False)
 
 
-class EnergyPredictionRequest(BaseModel):
-    temperature: float = Field(..., ge=-40, le=60, description="Temperature in °C")
+class EnergyPredictionRequest(_PredictionInput):
+    temperature: confloat(ge=-40, le=60, allow_inf_nan=False) = Field(..., description="Temperature in °C")
     hour: int = Field(..., ge=1, le=24, description="Hour of day (1–24)")
     day_of_week: int = Field(..., ge=1, le=7, description="1=Monday … 7=Sunday")
 
