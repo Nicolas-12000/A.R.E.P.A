@@ -35,6 +35,8 @@ Multi-domain linear regression: CRISP-DM offline training, `.joblib` artifacts, 
 
 Guía desde cero: [docs/00-empezar-aqui.md](docs/00-empezar-aqui.md) · índice en [docs/](docs/README.md).
 
+**Clone and run:** this repo ships the datasets (`data/raw/`, `data/processed/`), trained `.joblib` files in `models/`, and report PNGs in `report/figures/`. You do **not** need external downloads or `train_models.py` to use the API or the Next.js UI—only if you want to retrain or change the pipeline.
+
 ## Local setup
 
 ```bash
