@@ -2,7 +2,7 @@
 pandas==2.2.3
 numpy==2.5.3
 scikit-learn==1.9.1
-joblib==1.4.2
+joblib==1.6.0
 fastapi==0.141.1
 uvicorn==0.32.1
 pydantic-settings==2.6.1
