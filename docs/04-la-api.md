@@ -12,8 +12,7 @@ Eso es lo que se espera en un servicio: el modelo es un artefacto. Cambiar los d
 
 ```bash
 source .venv/bin/activate
-pip install -r requirements-dev.txt
-export PYTHONPATH=src
+pip install -r requirements-dev.txt   # incluye `pip install -e .` para el paquete arepa
 # Opcional: export AREPA_DATABASE_URL=postgresql+psycopg://...
 alembic upgrade head   # solo si hay Postgres
 uvicorn backend.app.main:app --reload --port 8000

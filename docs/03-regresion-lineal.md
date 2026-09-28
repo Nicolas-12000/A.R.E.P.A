@@ -98,7 +98,7 @@ Así el modelo ve una **posición en un círculo**, no una línea infinita. Es u
 ## Cómo se entrena aquí (pasos del repo)
 
 ```bash
-PYTHONPATH=src python scripts/train_models.py
+python scripts/train_models.py
 ```
 
 Código: `src/arepa/modeling.py`.

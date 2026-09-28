@@ -41,10 +41,10 @@ Guía desde cero: [docs/00-empezar-aqui.md](docs/00-empezar-aqui.md) · índice 
 
 ```bash
 python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements-dev.txt
+pip install -r requirements-dev.txt   # installs deps + editable `arepa` from src/
 
-PYTHONPATH=src python scripts/train_models.py   # optional refresh
-alembic upgrade head                            # tables on the Postgres already running
+python scripts/train_models.py        # optional refresh
+alembic upgrade head                  # tables on the Postgres already running
 uvicorn backend.app.main:app --reload --port 8000
 ```
 

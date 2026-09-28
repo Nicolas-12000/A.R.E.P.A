@@ -56,7 +56,6 @@ cp .env.example .env
 # Si no tienes Postgres, puedes omitir la URL: las predicciones funcionan; el historial no.
 
 alembic upgrade head               # solo si configuraste Postgres
-export PYTHONPATH=src
 uvicorn backend.app.main:app --reload --port 8000
 ```
 

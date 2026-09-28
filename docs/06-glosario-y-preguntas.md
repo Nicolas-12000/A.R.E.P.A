@@ -31,7 +31,7 @@ Para **usar** la API basta [00-empezar-aqui](00-empezar-aqui.md). Para **entende
 No para probar el proyecto. Los archivos en `models/` ya están listos. Entrenar de nuevo solo hace falta si cambias `data/` o el código en `src/arepa/`:
 
 ```bash
-PYTHONPATH=src python scripts/train_models.py
+python scripts/train_models.py
 ```
 
 ### ¿La API reentrena cuando llamo a `/predict`?
