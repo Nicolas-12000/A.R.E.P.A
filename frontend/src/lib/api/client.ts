@@ -71,6 +71,10 @@ async function request<T>(path: string, init: RequestInit = {}): Promise<T> {
 
 const metadataCache = new Map<ModelName, Promise<ModelMetadata>>();
 
+export function clearMetadataCache() {
+  metadataCache.clear();
+}
+
 export const api = {
   health: (signal?: AbortSignal) => request<Health>("/health", { signal }),
 

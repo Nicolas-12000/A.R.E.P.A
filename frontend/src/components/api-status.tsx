@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { useResource } from "@/hooks/use-resource";
+import { useAutoReconnect } from "@/hooks/use-auto-reconnect";
+import { isOfflineResource, useResource } from "@/hooks/use-resource";
 import { api } from "@/lib/api/client";
 import { cn } from "@/lib/cn";
 
@@ -24,6 +25,8 @@ export function ApiStatus() {
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, [reload]);
+
+  useAutoReconnect(isOfflineResource(health), reload);
 
   if (health.status === "loading" && !health.data) return <Skeleton className="h-10 w-10 rounded-full sm:w-28" />;
 

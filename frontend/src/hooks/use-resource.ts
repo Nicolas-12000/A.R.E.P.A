@@ -10,6 +10,10 @@ export type ResourceState<T> =
   | { status: "success"; data: T }
   | { status: "error"; error: ApiError; data?: T };
 
+export function isOfflineResource<T>(state: ResourceState<T>): boolean {
+  return state.status === "error" && state.error.isOffline;
+}
+
 interface Settled<T> {
   key: string;
   nonce: number;

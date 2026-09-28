@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useReducer, useRef, type ReactNode } from "react";
+import { useCallback, useMemo, useReducer, useRef, type ReactNode } from "react";
 
 import { ApiStatus } from "@/components/api-status";
 import { Card } from "@/components/ui/card";
@@ -9,8 +9,9 @@ import { Logo } from "@/components/ui/logo";
 import { Wordmark } from "@/components/ui/wordmark";
 import { draftFromPayload, EXERCISES } from "@/features/exercises/config";
 import { checkForm } from "@/features/exercises/validation";
-import { useResource } from "@/hooks/use-resource";
-import { api, toApiError } from "@/lib/api/client";
+import { useAutoReconnect } from "@/hooks/use-auto-reconnect";
+import { isOfflineResource, useResource } from "@/hooks/use-resource";
+import { api, clearMetadataCache, toApiError } from "@/lib/api/client";
 import type { ModelName, PredictionLogItem } from "@/lib/api/types";
 import { formatNumber } from "@/lib/format";
 import { ExercisePicker } from "./exercise-picker";
@@ -33,9 +34,21 @@ export function Predictor({ initialExercise, intro }: { initialExercise: ModelNa
   const current = state.byExercise[exercise];
   const spec = EXERCISES[exercise];
 
-  const [catalog] = useResource("catalog", loadCatalog);
+  const [catalog, reloadCatalog] = useResource("catalog", loadCatalog);
   const [metadata, reloadMetadata] = useResource(exercise, loadMetadata);
   const [history, reloadHistory] = useResource("history", loadHistory);
+
+  const apiOffline =
+    isOfflineResource(catalog) || isOfflineResource(metadata) || isOfflineResource(history);
+
+  const reloadApiData = useCallback(() => {
+    clearMetadataCache();
+    reloadCatalog();
+    reloadMetadata();
+    reloadHistory();
+  }, [reloadCatalog, reloadMetadata, reloadHistory]);
+
+  useAutoReconnect(apiOffline, reloadApiData);
 
   const form = useMemo(() => checkForm(spec, current.draft), [spec, current.draft]);
   const resultRef = useRef<HTMLElement>(null);
