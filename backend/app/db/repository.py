@@ -13,12 +13,39 @@ from backend.app.db.models import ModelMetadata, PredictionLog
 logger = logging.getLogger(__name__)
 
 
+def _normalize_payload(payload: dict) -> dict[str, object]:
+    """Stable comparison for JSON payloads (float rounding, key order)."""
+    normalized: dict[str, object] = {}
+    for key in sorted(payload):
+        value = payload[key]
+        if isinstance(value, float):
+            normalized[key] = round(value, 10)
+        else:
+            normalized[key] = value
+    return normalized
+
+
+def _same_inputs(left: dict, right: dict) -> bool:
+    return _normalize_payload(left) == _normalize_payload(right)
+
+
 def log_prediction(model_name: str, payload: dict, prediction: float) -> bool:
-    """Persist one prediction. Returns False if DB is off or the insert failed."""
+    """Persist one prediction unless it repeats the latest log entry (same model and inputs).
+
+    Returns False if DB is off or the insert failed. Returns True when stored or when skipped as a duplicate.
+    """
     if not db_session.enabled or db_session.SessionLocal is None:
         return False
     try:
         with db_session.SessionLocal() as session:
+            latest = session.scalar(select(PredictionLog).order_by(PredictionLog.id.desc()).limit(1))
+            if (
+                latest is not None
+                and latest.model_name == model_name
+                and _same_inputs(latest.input_payload, payload)
+            ):
+                return True
+
             session.add(
                 PredictionLog(
                     model_name=model_name,
