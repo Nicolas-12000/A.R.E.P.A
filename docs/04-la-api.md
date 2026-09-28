@@ -33,14 +33,14 @@ Variables de entorno usan el prefijo **`AREPA_`** (por ejemplo `AREPA_DATABASE_U
 | POST | `/v1/predict/dollar` | Predice precio del dólar | No |
 | POST | `/v1/predict/glucose` | Predice glucosa | No |
 | POST | `/v1/predict/energy` | Predice consumo (kWh) | No |
-| GET | `/v1/models` | Catálogo de los 3 ejercicios (MSE/R² desde `model_metadata` en Postgres) | No* |
+| GET | `/v1/models` | Catálogo de los 3 ejercicios (MSE/R²; ver nota abajo) | No |
 | GET | `/v1/models/{nombre}/metadata` | Coeficientes e interpretación (desde `.joblib`) | No |
-
-\*Si hay base, las métricas del listado vienen de la tabla sincronizada al arrancar; si no, del artefacto cargado.
 | GET | `/v1/predictions/history` | Últimas predicciones guardadas | Sí |
 | GET | `/v1/analytics/summary` | Conteos y promedios por modelo | Sí |
 
 `{nombre}` es `dollar`, `glucose` o `energy`.
+
+En **`GET /v1/models`**, si Postgres está configurado, MSE/R²/RMSE del listado vienen de `model_metadata` (sincronizada al arrancar); si no hay base, del artefacto `.joblib` cargado en memoria.
 
 ## Códigos de respuesta
 

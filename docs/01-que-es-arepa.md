@@ -30,6 +30,8 @@ La regresión lineal es el modelo que pide el taller. No se cambia por un modelo
 | `src/arepa/` | El código que limpia y entrena |
 | `models/` | Los tres modelos ya entrenados (`.joblib`) |
 | `backend/` | La API que predice |
+| `frontend/` | Interfaz web (Next.js): formularios, resultados y gráficas |
+| `report/` | Informe, resumen de tratamiento (`data_treatment.md`) y figuras PNG |
 | `docs/` | Esta explicación |
 
 El siguiente texto es [cómo se limpian los datos](02-limpieza-de-datos.md).
