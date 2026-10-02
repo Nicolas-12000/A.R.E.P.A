@@ -84,6 +84,10 @@ Nombre especial para que un contenedor Docker llegue al Postgres (o cualquier se
 
 En `frontend/`: Next.js con los tres ejercicios. **No va dentro de Docker Compose** (solo API + Postgres). Flujo típico: `docker compose up --build` y, en otra terminal, `cd frontend && pnpm install && pnpm dev` → http://localhost:3000. Sin UI, sigue valiendo `/docs` o `curl`.
 
+### ¿Puedo desplegar solo el frontend en Vercel sin API?
+
+Sí. Usa **`NEXT_PUBLIC_AREPA_MODE=local`**: la predicción usa `frontend/public/models/bundle.json` (coeficientes exportados, no `.joblib`) y el historial queda en el navegador. Las gráficas del informe se sirven desde `public/figures/`. Guía completa: [07-vercel-y-modo-local.md](07-vercel-y-modo-local.md).
+
 ### ¿Cómo corro los tests?
 
 ```bash

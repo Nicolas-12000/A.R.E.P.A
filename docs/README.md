@@ -13,3 +13,4 @@ Guías en español para quien **parte de cero** o solo quiere usar la API.
 | 4 | [La API](04-la-api.md) |
 | 5 | [PostgreSQL y Docker](05-postgres-y-docker.md) |
 | 6 | [Glosario y preguntas](06-glosario-y-preguntas.md) |
+| 7 | [Vercel y modo local](07-vercel-y-modo-local.md) — UI sin API, figuras, `bundle.json` |

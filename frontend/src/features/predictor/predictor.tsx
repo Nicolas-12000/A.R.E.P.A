@@ -11,7 +11,14 @@ import { draftFromPayload, EXERCISES } from "@/features/exercises/config";
 import { checkForm } from "@/features/exercises/validation";
 import { useAutoReconnect } from "@/hooks/use-auto-reconnect";
 import { isOfflineResource, useResource } from "@/hooks/use-resource";
-import { api, clearMetadataCache, toApiError } from "@/lib/api/client";
+import { toApiError } from "@/lib/api/client";
+import {
+  arepaHistory,
+  arepaMetadata,
+  arepaModels,
+  arepaPredict,
+  resetRuntimeProbe,
+} from "@/lib/runtime/arepa-data";
 import type { ModelName, PredictionLogItem } from "@/lib/api/types";
 import { formatNumber } from "@/lib/format";
 import { ExercisePicker } from "./exercise-picker";
@@ -22,9 +29,9 @@ import { RelationsCard } from "./relations-card";
 import { ResultCard } from "./result-card";
 import { initPredictor, predictorReducer } from "./state";
 
-const loadCatalog = (_key: string, signal: AbortSignal) => api.models(signal);
-const loadMetadata = (name: ModelName) => api.metadata(name);
-const loadHistory = (_key: string, signal: AbortSignal) => api.history(HISTORY_LIMIT, signal);
+const loadCatalog = (_key: string, signal: AbortSignal) => arepaModels(signal);
+const loadMetadata = (name: ModelName) => arepaMetadata(name);
+const loadHistory = (_key: string, signal: AbortSignal) => arepaHistory(HISTORY_LIMIT, signal);
 
 const DESKTOP_QUERY = "(width >= 64rem)";
 
@@ -42,7 +49,7 @@ export function Predictor({ initialExercise, intro }: { initialExercise: ModelNa
     isOfflineResource(catalog) || isOfflineResource(metadata) || isOfflineResource(history);
 
   const reloadApiData = useCallback(() => {
-    clearMetadataCache();
+    resetRuntimeProbe();
     reloadCatalog();
     reloadMetadata();
     reloadHistory();
@@ -116,7 +123,7 @@ export function Predictor({ initialExercise, intro }: { initialExercise: ModelNa
     }
 
     try {
-      const prediction = await api.predict(exercise, values);
+      const prediction = await arepaPredict(exercise, values);
       dispatch({
         type: "succeeded",
         exercise,

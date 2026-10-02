@@ -15,7 +15,22 @@ export async function GET(request: Request, context: { params: Promise<{ name: s
     return new NextResponse(null, { status: 404 });
   }
 
-  const file = path.join(process.cwd(), "..", "report", "figures", name);
+  const candidates = [
+    path.join(process.cwd(), "public", "figures", name),
+    path.join(process.cwd(), "..", "report", "figures", name),
+  ];
+  let file: string | null = null;
+  for (const candidate of candidates) {
+    try {
+      await stat(candidate);
+      file = candidate;
+      break;
+    } catch {
+      /* try next */
+    }
+  }
+  if (!file) return new NextResponse(null, { status: 404 });
+
   const info = await stat(file);
   const etag = `"${info.size.toString(36)}-${info.mtimeMs.toString(36)}"`;
   const headers = { ETag: etag, "Cache-Control": "no-cache" };

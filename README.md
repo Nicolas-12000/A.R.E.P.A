@@ -59,13 +59,13 @@ If you already run Postgres on `:5432`, start only the API: `docker compose up a
 
 API docs: http://localhost:8000/docs
 
-**Stack completo en desarrollo:** Docker solo empaqueta **Postgres + API** (`docker-compose.yml`). La UI Next.js corre en tu máquina con pnpm (abajo): apunta `NEXT_PUBLIC_API_URL` a `http://localhost:8000` (valor por defecto en `frontend/.env.example`). Las figuras del informe las sirve el propio frontend desde `report/figures/`.
+**Stack completo en desarrollo:** Docker empaqueta **Postgres + API**. La UI Next.js puede usar la API (`NEXT_PUBLIC_AREPA_MODE=api` o `auto`) o **modo local** (predicción + historial en el navegador, sin backend). Figuras: `report/figures/` → `frontend/public/figures/` en build.
 
 ## Web UI (Next.js)
 
-**Stack:** Next.js 15 (App Router), React 19, Tailwind CSS 4. The app lives in `frontend/` and talks to the API via `NEXT_PUBLIC_API_URL` (see `frontend/.env.example`).
+**Stack:** Next.js 15 (App Router), React 19, Tailwind CSS 4. Config: `frontend/.env.example` (`NEXT_PUBLIC_AREPA_MODE`, `NEXT_PUBLIC_API_URL`).
 
-**Needs:** Node 20+ recommended, API on port 8000 (Docker Compose or local uvicorn).
+**Con API (desarrollo clásico):** Node 20+, API en `:8000`.
 
 ```bash
 cd frontend
@@ -85,7 +85,15 @@ Open http://localhost:3000.
 
 **npm** also works (`npm install` / `npm run dev`) via `package-lock.json`; prefer **pnpm** (`pnpm-lock.yaml`) when you can. After changing `package.json`, refresh both lockfiles so they stay aligned.
 
-For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures from `report/figures/`. Design tokens and palette: [frontend/DESIGN.md](frontend/DESIGN.md) · install notes: [frontend/README.md](frontend/README.md).
+For each exercise you can type the inputs, see the prediction with R², MSE and RMSE, read how each coefficient moves the result, and open the scatter and correlation figures. Design: [frontend/DESIGN.md](frontend/DESIGN.md) · install & Vercel: [frontend/README.md](frontend/README.md) · **modo local / despliegue solo front:** [docs/07-vercel-y-modo-local.md](docs/07-vercel-y-modo-local.md).
+
+## Deploy UI on Vercel (no API required)
+
+1. Vercel **Root Directory:** `frontend`
+2. Set `NEXT_PUBLIC_AREPA_MODE=local`
+3. Commit `frontend/public/models/bundle.json` and figures under `frontend/public/figures/` (or rely on `prebuild` copying from `report/figures/`)
+
+Regenerate browser bundle after retraining: `python scripts/export_frontend_bundle.py`
 
 ## Tests & CI
 

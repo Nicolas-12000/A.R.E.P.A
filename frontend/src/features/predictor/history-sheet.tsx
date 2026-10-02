@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { EXERCISES, fieldLabel } from "@/features/exercises/config";
 import type { ResourceState } from "@/hooks/use-resource";
 import type { PredictionLogItem } from "@/lib/api/types";
+import { getResolvedRuntime } from "@/lib/runtime/arepa-data";
 import { cn } from "@/lib/cn";
 import { formatInput, formatNumber, formatRelativeTime } from "@/lib/format";
 
@@ -54,7 +55,9 @@ export function HistorySheet({
             <div>
               <CardLabel>Historial reciente</CardLabel>
               <p className="type-small mt-1 text-secondary">
-                Predicciones guardadas en la base de datos. Pulsa una para verla de nuevo.
+                {getResolvedRuntime() === "local"
+                  ? "Predicciones guardadas en este navegador (modo local). Pulsa una para verla de nuevo."
+                  : "Predicciones recientes. Pulsa una para verla de nuevo."}
               </p>
             </div>
             <button
@@ -88,11 +91,7 @@ export function HistorySheet({
                 </ul>
               )
             ) : history.status === "error" ? (
-              <p className="type-small py-6 text-secondary">
-                {history.error.status === 503
-                  ? "El historial necesita una base de datos. Con docker compose ya viene incluida."
-                  : history.error.message}
-              </p>
+              <p className="type-small py-6 text-secondary">{history.error.message}</p>
             ) : (
               <HistorySkeleton />
             )}

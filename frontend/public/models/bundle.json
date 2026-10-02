@@ -1,0 +1,121 @@
+{
+  "version": "1",
+  "source": "models/training_metrics.json",
+  "algorithm": "OLS + StandardScaler (coeficientes en unidades originales)",
+  "models": {
+    "dollar": {
+      "exercise_title": "Ejercicio 1: Precio del d\u00f3lar",
+      "target": "dollar_price",
+      "feature_names": [
+        "day",
+        "inflation_rate",
+        "interest_rate"
+      ],
+      "metrics": {
+        "mse": 2376.970876572467,
+        "rmse": 48.75418829775004,
+        "r2": 0.9963128117569109
+      },
+      "coefficients": [
+        {
+          "feature": "day",
+          "coefficient": 4.984338715884639,
+          "standardized_coefficient": 699.8238181755279
+        },
+        {
+          "feature": "inflation_rate",
+          "coefficient": -870.7317083114131,
+          "standardized_coefficient": -4.267695392326026
+        },
+        {
+          "feature": "interest_rate",
+          "coefficient": -1.377431287808411,
+          "standardized_coefficient": -0.6597987330640835
+        },
+        {
+          "feature": "intercept",
+          "coefficient": 3985.783290894245,
+          "standardized_coefficient": 5202.697603367559
+        }
+      ]
+    },
+    "glucose": {
+      "exercise_title": "Ejercicio 2: Nivel de glucosa",
+      "target": "glucose_level",
+      "feature_names": [
+        "age",
+        "bmi",
+        "physical_activity_hours"
+      ],
+      "metrics": {
+        "mse": 233.6930004508584,
+        "rmse": 15.287020653183484,
+        "r2": 0.6813715865404839
+      },
+      "coefficients": [
+        {
+          "feature": "age",
+          "coefficient": 1.2265900344995717,
+          "standardized_coefficient": 21.570810524540356
+        },
+        {
+          "feature": "bmi",
+          "coefficient": 0.9333730560351005,
+          "standardized_coefficient": 3.7225287924334873
+        },
+        {
+          "feature": "physical_activity_hours",
+          "coefficient": -2.085276343043284,
+          "standardized_coefficient": -6.106122125279992
+        },
+        {
+          "feature": "intercept",
+          "coefficient": 65.86086530452529,
+          "standardized_coefficient": 139.81409842954685
+        }
+      ]
+    },
+    "energy": {
+      "exercise_title": "Ejercicio 3: Consumo de energ\u00eda",
+      "target": "energy_consumption",
+      "feature_names": [
+        "temperature",
+        "hour_sin",
+        "hour_cos",
+        "day_of_week"
+      ],
+      "metrics": {
+        "mse": 894.4055061609894,
+        "rmse": 29.90661308408208,
+        "r2": 0.7851430644321611
+      },
+      "coefficients": [
+        {
+          "feature": "temperature",
+          "coefficient": 9.870098523050014,
+          "standardized_coefficient": 49.2494813480678
+        },
+        {
+          "feature": "hour_sin",
+          "coefficient": -38.3105997675908,
+          "standardized_coefficient": -26.994439592713505
+        },
+        {
+          "feature": "hour_cos",
+          "coefficient": -4.871820838566049,
+          "standardized_coefficient": -3.456963558554513
+        },
+        {
+          "feature": "day_of_week",
+          "coefficient": -3.0666735506800054,
+          "standardized_coefficient": -6.145022889248078
+        },
+        {
+          "feature": "intercept",
+          "coefficient": 166.08339627947905,
+          "standardized_coefficient": 400.10857952736836
+        }
+      ]
+    }
+  }
+}

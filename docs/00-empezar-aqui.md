@@ -44,6 +44,8 @@ pnpm dev
 
 Abre **http://localhost:3000**: eliges ejercicio, escribes valores, ves predicción, interpretación y figuras. Detalle en el [README del frontend](../frontend/README.md).
 
+**Sin API (solo front):** puedes usar `NEXT_PUBLIC_AREPA_MODE=local` en `.env.local` y no levantar Docker; predicción e historial van en el navegador. Para publicar en Vercel, lee [Vercel y modo local](07-vercel-y-modo-local.md).
+
 ## Sin Docker (Python local)
 
 ```bash
@@ -71,6 +73,7 @@ Docs: http://localhost:8000/docs
 | 4 | [La API](04-la-api.md) | Rutas, errores, respuestas |
 | 5 | [PostgreSQL y Docker](05-postgres-y-docker.md) | Base de datos y contenedores |
 | 6 | [Glosario y preguntas](06-glosario-y-preguntas.md) | Términos y dudas frecuentes |
+| 7 | [Vercel y modo local](07-vercel-y-modo-local.md) | Despliegue solo frontend, figuras, sin joblib en el navegador |
 
 Si solo quieres **usar** la API, basta con este archivo y [La API](04-la-api.md). Si vas a **entregar un informe** o **reentrenar**, lee del 1 al 3.
 
